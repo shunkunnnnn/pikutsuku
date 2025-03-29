@@ -22,12 +22,6 @@
 </head>
 <body>
   <h1>ぴくつく</h1>
-
-  <!-- ✅ プレミアムプランのボタン -->
-  <a href="https://buy.stripe.com/test_dummy_link" target="_blank">
-    <button>ぴくつく プレミアム（月額980円）に登録する</button>
-  </a>
-
   <p>好きなプロンプトで画像を生成しよう！</p>
 
   <!-- ✅ 画像生成UI -->
@@ -35,6 +29,13 @@
   <button onclick="generateImage()">画像を生成</button>
   <br>
   <img id="result">
+
+  <!-- ✅ プレミアムプランのボタン（入力欄の下に移動） -->
+  <div style="margin-top: 2em;">
+    <a href="https://buy.stripe.com/test_dummy_link" target="_blank">
+      <button>ぴくつく プレミアム（月額980円）に登録する</button>
+    </a>
+  </div>
 
   <script>
     async function generateImage() {
