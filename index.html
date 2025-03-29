@@ -4,43 +4,49 @@
 <head>
   <meta charset="UTF-8">
   <title>ぴくつく</title>
-  <link rel="stylesheet" href="style.css">
   <style>
-    body { text-align: center; font-family: sans-serif; }
-    h1 { font-size: 48px; margin-top: 40px; }
-    p { font-size: 18px; }
-    input, button { font-size: 16px; padding: 8px; width: 300px; margin-top: 10px; }
-    img { margin-top: 20px; max-width: 90%; border-radius: 10px; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 2em;
+    }
+    input, button {
+      padding: 0.5em;
+      font-size: 1em;
+    }
+    img {
+      margin-top: 1em;
+      max-width: 100%;
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>ぴくつく</h1>
-
-    <input type="text" id="prompt" placeholder="例: 制服のギャルが笑っている">
-    <br>
-    <button onclick="generate()">画像を生成する</button>
-    <div id="result">
-      <img id="outputImage" src="" alt="">
-    </div>
-
-    <a href="https://buy.stripe.com/test_dummy_link" target="_blank">
-      <button>ぴくつく プレミアム（月額980円）に登録する</button>
-    </a>
-    <p><a href="terms.html">利用規約</a></p>
-  </main>
+  <h1>ぴくつく</h1>
+  <p>好きなプロンプトで画像を生成しよう！</p>
+  
+  <input type="text" id="prompt" placeholder="例：制服の女子高生が笑っている">
+  <button onclick="generateImage()">画像を生成</button>
+  <br>
+  <img id="result">
 
   <script>
-    async function generate() {
+    async function generateImage() {
       const prompt = document.getElementById("prompt").value;
-      const response = await fetch("https://pikutsuku-api.runpod.run/generate", {
+
+      const response = await fetch("https://3redeboa8ysc7r-1111.proxy.runpod.net/sdapi/v1/txt2img", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt })
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          steps: 20
+        })
       });
 
-      const data = await response.json();
-      document.getElementById("outputImage").src = data.image_url;
+      const result = await response.json();
+      const imageBase64 = result.images[0];
+      document.getElementById("result").src = "data:image/png;base64," + imageBase64;
     }
   </script>
 </body>
