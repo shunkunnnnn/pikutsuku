@@ -34,6 +34,7 @@
       max-width: 600px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       border-radius: 12px;
+      text-align: center;
     }
 
     input[type="text"] {
@@ -54,6 +55,7 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s;
+      margin-bottom: 1rem;
     }
 
     button:hover {
@@ -95,7 +97,9 @@
 
   <main>
     <input type="text" id="prompt" placeholder="例：制服の女子高生が笑っている">
-    <button onclick="generateImage()">画像を生成</button>
+    <div>
+      <button onclick="generateImage()">画像を生成</button>
+    </div>
     <img id="result">
 
     <div class="premium">
@@ -108,7 +112,6 @@
   <footer>
     <a href="terms.html" target="_blank">利用規約</a>
     <a href="privacy.html" target="_blank">プライバシーポリシー</a>
-    <a href="terms_en.html" target="_blank">Terms</a>
   </footer>
 
   <script>
