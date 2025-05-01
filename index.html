@@ -117,25 +117,34 @@
     <a href="privacy.html" target="_blank">プライバシーポリシー</a>
   </footer>
 
-  <script>
-    async function generateImage() {
-      const prompt = document.getElementById("prompt").value;
+ <script>
+  async function generateImage() {
+    const prompt = document.getElementById("prompt").value;
 
-      const response = await fetch("https://xxxxx-7860.proxy.runpod.net/sdapi/v1/txt2img", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          prompt: prompt,
-          steps: 20
-        })
-      });
+    const response = await fetch("https://api.runpod.ai/v2/inhyuat7dwbwkm/run", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer rpa_4F9V7PBZ0FZ36A9TM4944VIA7TJH96XS0P39WOLZzvp2hi"
+      },
+      body: JSON.stringify({
+        input: {
+          prompt: prompt
+        }
+      })
+    });
 
-      const result = await response.json();
-      const imageBase64 = result.images[0];
-      document.getElementById("result").src = "data:image/png;base64," + imageBase64;
+    const result = await response.json();
+    const imageUrl = result.output?.image_url || result.output?.[0]?.image_url;
+
+    if (imageUrl) {
+      document.getElementById("result").src = imageUrl;
+    } else {
+      console.log(result); // エラー確認用
+      alert("画像生成に失敗しました");
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
